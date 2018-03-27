@@ -77,3 +77,6 @@
         text-overflow: ellipsis;
     }
 }
+
+/* pagination */
+.page-link:focus{box-shadow:none !important;}

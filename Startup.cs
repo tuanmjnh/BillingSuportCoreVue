@@ -29,7 +29,7 @@ namespace Vue2Spa
             services.AddMvc();
 
             // Simple example with dependency injection for a data provider.
-            services.AddSingleton<Providers.IWeatherProvider, Providers.WeatherProviderFake>();
+            services.AddSingleton<Providers.IWeatherProvider, Providers.WeatherProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
