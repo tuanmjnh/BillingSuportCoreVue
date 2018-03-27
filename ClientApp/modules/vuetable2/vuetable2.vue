@@ -1,35 +1,41 @@
 <template>
     <div class="ui container">
+      <filter-bar></filter-bar>
       <vuetable ref="vuetable"
         api-url="https://vuetable.ratiw.net/api/users"
         :fields="fields"
         :per-page="5"
         :sort-order="sortOrder"
         :multi-sort="true"
-        @vuetable:pagination-data="onPaginationData"
-        @vuetable:cell-clicked="onCellClicked"
         track-by="name"
         multi-sort-key="ctrl"
+        pagination-path=""
         detail-row-component="my-detail-row"
-        pagination-path=""></vuetable>
+        @vuetable:cell-clicked="onCellClicked"
+        @vuetable:pagination-data="onPaginationData"></vuetable>
         <div class="vuetable-pagination ui basic segment grid">
           <vuetable-pagination-info ref="paginationInfo"></vuetable-pagination-info>
           <vuetable-pagination ref="pagination"  :css="css.pagination" @vuetable-pagination:change-page="onChangePage"></vuetable-pagination>
         </div>
     </div>
+     <!-- @vuetable:cell-clicked="onCellClicked" -->
   </template>
-
 <script>
 import Vue from "vue";
+import VueEvents from "vue-events";
 import moment from "moment";
 import accounting from "accounting";
 import Vuetable from "../../components/vuetable2/Vuetable";
 import VuetablePagination from "../../components/vuetable2/VuetablePagination";
 import VuetablePaginationInfo from "../../components/vuetable2/VuetablePaginationInfo";
+import FilterBar from "../../components/vuetable2/FilterBar";
 import CustomActions from "../../components/vuetable2/CustomActions";
+import DetailRow from "../../components/vuetable2/DetailRow";
 
+Vue.use(VueEvents);
 Vue.component("custom-actions", CustomActions);
-
+Vue.component("my-detail-row", DetailRow);
+Vue.component("filter-bar", FilterBar);
 export default {
   components: {
     Vuetable,
@@ -110,7 +116,6 @@ export default {
     onPaginationData(paginationData) {
       this.$refs.pagination.setPaginationData(paginationData);
       this.$refs.paginationInfo.setPaginationData(paginationData);
-      this.$refs.vuetable.selectedTo
     },
     onChangePage(page) {
       this.$refs.vuetable.changePage(page);
@@ -118,8 +123,12 @@ export default {
     onAction(action, data, index) {
       console.log("slot) action: " + action, data.name, index);
     },
-    onCellClicked(a,b) {
-      console.log(a);
+    deleteall() {
+      console.log(this.$refs.vuetable.selectedTo);
+    },
+    onCellClicked(data, field, event) {
+      // console.log("cellClicked: ", field.name);
+      this.$refs.vuetable.toggleDetailRow(data.name);
     },
     allcap(value) {
       return value.toUpperCase();
