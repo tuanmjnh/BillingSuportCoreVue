@@ -1,17 +1,23 @@
 <template>
-    <div class="filter-bar ui basic segment grid">
-      <div class="ui form">
-        <div class="inline field">
-          <label>Search for:</label>
-          <input type="text" v-model="filterText" class="three wide column" @keyup.enter="doFilter" placeholder="name, nickname, or email">
-          <button class="ui primary button" @click="doFilter">Go</button>
-          <button class="ui button" @click="resetFilter">Reset</button>
+  <div class="filter-bar ui basic segment grid">
+    <div class="ui form">
+      <div class="inline field">
+        <div class="float-right input-group mb-3 col-4">
+        <input type="text" v-model="filterText" class="form-control" @keyup="doFilter" placeholder="name, nickname, or email">
+          <div class="input-group-append">
+          <span class="input-group-text btn" id="basic-addon2" @click="doFilter"><icon :icon="['fas', 'search']"/></span>
+          </div>
+        <!-- <div class="col-6 inline float-left">
+        <button class="btn btn-primary" @click="doFilter">Go</button>
+        <button class="btn btn-default" @click="resetFilter">Reset</button>
+        </div> -->
         </div>
       </div>
     </div>
-  </template>
+  </div>
+</template>
 
-  <script>
+<script>
 export default {
   data() {
     return {
@@ -20,11 +26,11 @@ export default {
   },
   methods: {
     doFilter() {
-      console.log("doFilter:", this.filterText);
+      this.$events.fire("filter-set", this.filterText);
     },
     resetFilter() {
       this.filterText = "";
-      console.log("resetFilter");
+      this.$events.fire("filter-reset");
     }
   }
 };

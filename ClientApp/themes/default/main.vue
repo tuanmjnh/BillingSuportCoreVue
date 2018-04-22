@@ -12,18 +12,19 @@
 </template>
 
 <script>
-    import NavMenu from './nav-menu'
+import NavMenu from "./nav-menu";
 
-    export default {
-      components: {
-        'nav-menu': NavMenu
-      },
+export default {
+  components: {
+    "nav-menu": NavMenu
+  },
 
-      data () {
-        return {}
-      }
-    }
+  data() {
+    return {};
+  }
+};
 </script>
 
 <style>
+
 </style>

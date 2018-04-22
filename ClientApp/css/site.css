@@ -1,3 +1,6 @@
+.ui.container{
+    margin-top:20px;
+}
 /* This file should be reviewed. It's not optimal, but it works for now. */
 .navbar {
     display: list-item;
@@ -71,7 +74,7 @@
     
     .navbar a {
         /* If a menu item's text is too long, truncate it */
-        width: 95%; /* Bug to fix here. Width 100% overflow. */
+       /* width: 95%;  Bug to fix here. Width 100% overflow. */
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
